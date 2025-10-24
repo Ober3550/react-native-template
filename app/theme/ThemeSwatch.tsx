@@ -21,7 +21,7 @@ function capitalizeFirstLetter(str: string) {
 
 const ThemeSwatch = () => {
   const theme = useTheme();
-  const colors = Object.keys(theme.colors).filter((key) => !key.startsWith("on"));
+  const colors = Object.keys(theme.colors).filter((key) => !key.startsWith("on") && key !== 'shadow' && key !== 'scrim' && key !== 'elevation');
 
   return (
     <View>

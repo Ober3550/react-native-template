@@ -27,7 +27,7 @@ export const LightTheme = {
     shadow: "rgb(0, 0, 0)",
     scrim: "rgb(0, 0, 0)",
     inverseSurface: "rgb(50, 47, 51)",
-    inverseOnSurface: "rgb(245, 239, 244)",
+    onInverseSurface: "rgb(245, 239, 244)",
     inversePrimary: "rgb(220, 184, 255)",
     elevation: {
       level0: "transparent",
