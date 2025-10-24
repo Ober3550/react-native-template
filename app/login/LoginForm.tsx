@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, TextInput, Pressable, ActivityIndicator } from 'react-native';
-import { theme } from '../theme';
+import { theme } from '../../theme';
 
 type Props = {
   onLoginSuccess: (user: string) => void;
@@ -89,7 +89,9 @@ function authUser(username: string, password: string): Promise<string | null> {
 
 const styles = StyleSheet.create({
   container: {
+    alignSelf: 'center',
     padding: 20,
+    width: 400,
   },
   title: {
     alignSelf: 'center',

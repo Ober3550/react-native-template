@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SafeAreaView } from 'react-native';
-import { LoginForm } from './components/LoginForm';
-import { Home } from './components/Home';
+import { LoginForm } from './login/LoginForm';
+import { Home } from './Home';
 
 const App = () => {
   const [user, setUser] = React.useState<string | null>(null);

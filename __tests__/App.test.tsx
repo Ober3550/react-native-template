@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render, screen, userEvent } from '@testing-library/react-native';
-import App from '../App';
+import App from '../app/_layout';
 
 jest.useFakeTimers();
 
