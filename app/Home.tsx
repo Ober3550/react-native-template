@@ -1,11 +1,15 @@
-import * as React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import * as React from "react";
+import { StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
+import { MD3Theme, useTheme } from "react-native-paper";
 
 type Props = {
   user: string;
 };
 
 export function Home({ user }: Props) {
+  const theme = useTheme();
+  const styles = createStyles(theme);
   return (
     <View style={styles.container}>
       <Text accessibilityRole="header" style={styles.title}>
@@ -15,14 +19,16 @@ export function Home({ user }: Props) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-  },
-  title: {
-    alignSelf: 'center',
-    fontSize: 24,
-    marginTop: 8,
-    marginBottom: 40,
-  },
-});
+const createStyles = (theme: MD3Theme) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: theme.colors.background,
+      padding: 20,
+    },
+    title: {
+      alignSelf: "center",
+      fontSize: 24,
+      marginTop: 8,
+      marginBottom: 40,
+    },
+  });

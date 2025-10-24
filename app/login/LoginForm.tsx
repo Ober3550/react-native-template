@@ -1,14 +1,22 @@
-import * as React from 'react';
-import { StyleSheet, View, Text, TextInput, Pressable, ActivityIndicator } from 'react-native';
-import { theme } from '../../theme';
+import * as React from "react";
+import { StyleSheet, View } from "react-native";
+import {
+  Text,
+  TextInput,
+  ActivityIndicator,
+} from "react-native-paper";
+import { useTheme, Button } from "react-native-paper";
+import { MD3Theme } from "react-native-paper/lib/typescript/types";
 
 type Props = {
   onLoginSuccess: (user: string) => void;
 };
 
 export function LoginForm({ onLoginSuccess }: Props) {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const theme = useTheme();
+  const styles = createStyles(theme);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | undefined>();
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -22,7 +30,7 @@ export function LoginForm({ onLoginSuccess }: Props) {
       setError(undefined);
       onLoginSuccess(user);
     } else {
-      setError('Incorrect username or password');
+      setError("Incorrect username or password");
     }
   };
 
@@ -56,18 +64,13 @@ export function LoginForm({ onLoginSuccess }: Props) {
         </Text>
       )}
 
-      <Pressable
-        accessibilityRole="button"
-        disabled={isLoading}
-        onPress={handleSignIn}
-        style={styles.button}
-      >
+      <Button mode="contained" onPress={handleSignIn}>
         {isLoading ? (
           <ActivityIndicator color="white" />
         ) : (
           <Text style={styles.buttonText}>Sign In</Text>
         )}
-      </Pressable>
+      </Button>
     </View>
   );
 }
@@ -81,51 +84,54 @@ export function LoginForm({ onLoginSuccess }: Props) {
 function authUser(username: string, password: string): Promise<string | null> {
   return new Promise((resolve) =>
     setTimeout(() => {
-      const hasValidCredentials = username === 'admin' && password === 'admin1';
+      const hasValidCredentials = username === "admin" && password === "admin1";
       resolve(hasValidCredentials ? username : null);
-    }, 250),
+    }, 250)
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignSelf: 'center',
-    padding: 20,
-    width: 400,
-  },
-  title: {
-    alignSelf: 'center',
-    fontSize: 24,
-    marginTop: 8,
-    marginBottom: 40,
-  },
-  textLabel: {
-    fontSize: 16,
-    color: theme.colors.label,
-  },
-  textInput: {
-    fontSize: 20,
-    padding: 8,
-    marginVertical: 8,
-    borderColor: theme.colors.text,
-    borderWidth: 1,
-  },
-  button: {
-    backgroundColor: theme.colors.button,
-    padding: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 20,
-    minHeight: 56,
-  },
-  buttonText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: theme.colors.buttonText,
-  },
-  validator: {
-    color: theme.colors.validator,
-    fontSize: 18,
-    marginTop: 8,
-  },
-});
+const createStyles = (theme: MD3Theme) =>
+  StyleSheet.create({
+    container: {
+      alignSelf: "center",
+      padding: 20,
+      width: 400,
+    },
+    title: {
+      color: theme.colors.onBackground,
+      alignSelf: "center",
+      fontSize: 24,
+      marginTop: 8,
+      marginBottom: 40,
+    },
+    textLabel: {
+      color: theme.colors.onBackground,
+      fontSize: 16,
+    },
+    textInput: {
+      color: theme.colors.onBackground,
+      fontSize: 20,
+      marginVertical: 8,
+      borderColor: theme.colors.primaryContainer,
+      borderWidth: 1,
+    },
+    button: {
+      backgroundColor: theme.colors.primaryContainer,
+      padding: 16,
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: 20,
+      minHeight: 56,
+    },
+    buttonText: {
+      padding: 8,
+      fontSize: 20,
+      fontWeight: "600",
+      color: theme.colors.onPrimaryContainer,
+    },
+    validator: {
+      color: theme.colors.onPrimaryContainer,
+      fontSize: 18,
+      padding: 8,
+    },
+  });
