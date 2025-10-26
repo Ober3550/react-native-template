@@ -1,4 +1,19 @@
-export const LightTheme = {
+import { MD3DarkTheme, MD3LightTheme, MD3Theme, useTheme } from "react-native-paper";
+
+interface CustomColors {
+  ripple: string;
+}
+
+type AppTheme = MD3Theme & {
+  colors: MD3Theme["colors"] & CustomColors;
+}
+
+export type { AppTheme };
+
+export const useAppTheme = () => useTheme<AppTheme>();
+
+export const LightTheme: AppTheme = {
+  ...MD3LightTheme,
   colors: {
     primary: "#3DBFBB",
     onPrimary: "#FFFFFF",
@@ -27,7 +42,7 @@ export const LightTheme = {
     shadow: "rgb(0, 0, 0)",
     scrim: "rgb(0, 0, 0)",
     inverseSurface: "rgb(50, 47, 51)",
-    onInverseSurface: "rgb(245, 239, 244)",
+    inverseOnSurface: "rgb(245, 239, 244)",
     inversePrimary: "rgb(220, 184, 255)",
     elevation: {
       level0: "transparent",
@@ -40,10 +55,12 @@ export const LightTheme = {
     surfaceDisabled: "rgba(29, 27, 30, 0.12)",
     onSurfaceDisabled: "rgba(29, 27, 30, 0.38)",
     backdrop: "rgba(51, 47, 55, 0.4)",
+    ripple: "rgba(0, 0, 0, 0.32)",
   },
 };
 
-export const DarkTheme = {
+export const DarkTheme: AppTheme = {
+  ...MD3DarkTheme,
   colors: {
     primary: "rgb(220, 184, 255)",
     onPrimary: "rgb(71, 12, 122)",
@@ -85,5 +102,6 @@ export const DarkTheme = {
     surfaceDisabled: "rgba(231, 225, 229, 0.12)",
     onSurfaceDisabled: "rgba(231, 225, 229, 0.38)",
     backdrop: "rgba(51, 47, 55, 0.4)",
+    ripple: "rgba(255, 255, 255, 0.32)",
   },
 };
