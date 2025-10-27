@@ -1,14 +1,13 @@
 import * as React from "react";
-import { SafeAreaView } from "react-native";
-// import { LoginForm } from "./login/LoginForm";
-// import { Home } from "./Home";
 import { PaperProvider } from "react-native-paper";
-import { LightTheme, DarkTheme } from "../components/theme";
+import { LightTheme, DarkTheme } from "@components/theme";
 import { Appearance } from "react-native";
-import { UploadForm } from "./upload/UploadForm";
+import { SessionProvider, useSession } from '@components/ctx';
+import { SplashScreenController } from '@components/splash';
+import { Stack, useRouter } from 'expo-router';
+import { useEffect, useMemo } from "react";
 
-const App = () => {
-  const [user, setUser] = React.useState<string | null>(null);
+export default function Root() {
   const colorScheme = Appearance.getColorScheme();
 
   const theme = {
@@ -17,18 +16,28 @@ const App = () => {
 
   return (
     <PaperProvider theme={theme}>
-      <SafeAreaView
-        style={{ backgroundColor: theme.colors.background, flex: 1 }}
-      >
-        <UploadForm />
-        {/* {user == null ? (
-          <LoginForm onLoginSuccess={setUser} />
-        ) : (
-          <Home user={user} />
-        )} */}
-      </SafeAreaView>
+      <SessionProvider>
+        <SplashScreenController />
+        <RootNavigator />
+      </SessionProvider>
     </PaperProvider>
   );
-};
+}
 
-export default App;
+// Create a new component that can access the SessionProvider context later.
+
+function RootNavigator() {
+  const { session } = useSession();
+  
+  return (
+    <Stack>
+      <Stack.Protected guard={!!session}>
+        <Stack.Screen name="(app)" options={{ headerShown: false }} />
+      </Stack.Protected>
+
+      <Stack.Protected guard={!session}>
+        <Stack.Screen name="login" />
+      </Stack.Protected>
+    </Stack>
+  );
+}

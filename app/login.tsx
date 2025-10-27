@@ -5,20 +5,23 @@ import {
   TextInput,
   ActivityIndicator,
 } from "react-native-paper";
-import { useTheme, Button } from "react-native-paper";
-import { MD3Theme } from "react-native-paper/lib/typescript/types";
+import { Button } from "react-native-paper";
+import { AppTheme, useAppTheme } from "@components/theme";
+import { router } from "expo-router";
+import { useSession } from "@components/ctx";
 
 type Props = {
   onLoginSuccess: (user: string) => void;
 };
 
-export function LoginForm({ onLoginSuccess }: Props) {
-  const theme = useTheme();
+export default function Login() {
+  const theme = useAppTheme();
   const styles = createStyles(theme);
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | undefined>();
   const [isLoading, setIsLoading] = React.useState(false);
+  const { signIn } = useSession();
 
   const handleSignIn = async () => {
     setIsLoading(true);
@@ -28,7 +31,8 @@ export function LoginForm({ onLoginSuccess }: Props) {
 
     if (user) {
       setError(undefined);
-      onLoginSuccess(user);
+      signIn(user);
+      router.replace('/home');
     } else {
       setError("Incorrect username or password");
     }
@@ -90,7 +94,7 @@ function authUser(username: string, password: string): Promise<string | null> {
   );
 }
 
-const createStyles = (theme: MD3Theme) =>
+const createStyles = (theme: AppTheme) =>
   StyleSheet.create({
     container: {
       alignSelf: "center",

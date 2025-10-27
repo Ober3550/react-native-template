@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-native-paper";
 import * as DocumentPicker from "expo-document-picker";
 
-export function UploadForm() {
+export default function UploadForm() {
   const [file, setFile] = useState<any>(null);
 
   async function handleFilePick() {
