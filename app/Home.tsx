@@ -7,7 +7,7 @@ type Props = {
   user: string;
 };
 
-export function Home({ user }: Props) {
+export default function Home({ user }: Props) {
   const theme = useTheme();
   const styles = createStyles(theme);
   return (

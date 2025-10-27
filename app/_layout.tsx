@@ -1,10 +1,11 @@
 import * as React from "react";
 import { SafeAreaView } from "react-native";
-import { LoginForm } from "./login/LoginForm";
-import { Home } from "./Home";
+// import { LoginForm } from "./login/LoginForm";
+// import { Home } from "./Home";
 import { PaperProvider } from "react-native-paper";
 import { LightTheme, DarkTheme } from "../components/theme";
 import { Appearance } from "react-native";
+import { UploadForm } from "./upload/UploadForm";
 
 const App = () => {
   const [user, setUser] = React.useState<string | null>(null);
@@ -19,11 +20,12 @@ const App = () => {
       <SafeAreaView
         style={{ backgroundColor: theme.colors.background, flex: 1 }}
       >
-        {user == null ? (
+        <UploadForm />
+        {/* {user == null ? (
           <LoginForm onLoginSuccess={setUser} />
         ) : (
           <Home user={user} />
-        )}
+        )} */}
       </SafeAreaView>
     </PaperProvider>
   );
